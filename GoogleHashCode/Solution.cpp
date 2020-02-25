@@ -430,7 +430,7 @@ void Solution::recalculateLibWeightings(vector<double> weightings)
             totalHueristic = totalHueristic / weightsUsed;
 
             //change this choose algo
-            totalHueristic = powl(totalHueristic, 5);
+            totalHueristic = powl(totalHueristic, 10);
             
             
             lib->setWeight(totalHueristic);

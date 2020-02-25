@@ -15,6 +15,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <random>
+#include <filesystem>
 
 #include "Library.h"
 #include "Book.h"

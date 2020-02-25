@@ -6,9 +6,9 @@
 
 using namespace std;
 
-const static int passes = 10;
-const static int samples = 5;
-const static int microSamples = 1;
+const static int passes = 100;
+const static int samples = 20;
+const static int microSamples = 2;
 static double sigma = 1; // may be too big
 
 static vector<double> weightings = vector<double>({ 1, 1, 1 });
@@ -119,28 +119,29 @@ int optimize(string file)
 
 int main()
 {
-	//Solution* sol1 = new Solution("C:\\Users\\44749\\Downloads\\a_example .txt");
-	//Solution* sol1 = new Solution("C:\\Users\\44749\\Downloads\\b_read_on.txt");
-	//Solution* sol1 = new Solution("C:\\Users\\44749\\Downloads\\c_incunabula.txt");
-	//Solution* sol1 = new Solution("C:\\Users\\44749\\Downloads\\d_tough_choices.txt");
-	//Solution* sol1 = new Solution("C:\\Users\\44749\\Downloads\\e_so_many_books.txt");
-	//Solution* sol1 = new Solution("C:\\Users\\44749\\Downloads\\f_libraries_of_the_world.txt");
-	//int score = sol1->calcScore(1,1,1);
+
+	//ONLY RUN ONE AT A TIME
+
+	//FILE A
+	//cout << "Finished with Score: " << optimize( "..\\GoogleHashCode\\a_example.txt" ) << endl;
+
+	//FILE B
+	//cout << "Finished with Score: " << optimize( "..\\GoogleHashCode\\b_read_on.txt" ) << endl;
+
+	//FILE C
+	cout << "Finished with Score: " << optimize( "..\\GoogleHashCode\\c_incunabula.txt" ) << endl;
+
+	//FILE D
+	//cout << "Finished with Score: " << optimize( "..\\GoogleHashCode\\d_tough_choices.txt" ) << endl;
+
+	//FILE E
+	//cout << "Finished with Score: " << optimize( "..\\GoogleHashCode\\e_so_many_books.txt" ) << endl;
+
+	//FILE F
+	//cout << "Finished with Score: " << optimize( "..\\GoogleHashCode\\f_libraries_of_the_world.txt" ) << endl;
 
 
-
-	//Solution* bestSolution = optimize("C:\\Users\\44749\\Downloads\\a_example .txt");
-
-
-	//cout << "Finished with Score: " << optimize("C:\\Users\\44749\\Downloads\\b_read_on.txt") << endl;
-	cout << "Finished with Score: " << optimize("C:\\Users\\44749\\Downloads\\e_so_many_books.txt") << endl;
-
-
-	//Solution* bestSolution = optimize("C:\\Users\\44749\\Downloads\\f_libraries_of_the_world.txt");
-	//Solution* bestSolution = optimize("C:\\Users\\44749\\Downloads\\e_so_many_books.txt");
-
-
-	//bestSolution->writeToFile();
+	
 
 }
 
