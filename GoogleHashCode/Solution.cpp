@@ -8,6 +8,7 @@ using namespace std;
 //static vector<double> weightings; //= vector<double>({ 1, 1, 1 });
 
 
+
 Solution::Solution(string file)
 {
 
@@ -30,18 +31,6 @@ Solution::Solution(string file)
 
 Solution::~Solution()
 {
-    cout << "Destructor called\n";
-    for (Book* book : booksList)
-    {
-        delete book;
-    }
-
-    for (Library* lib : libraryList)
-    {
-        delete lib;
-    }
-
-
 
 }
 
@@ -155,11 +144,11 @@ Library* Solution::getNextLibrary()
 int Solution::calcScore(vector<double> weightings)
 {
     //Calculates Score
+	recalculateLibWeightings(weightings);
     while (currentTime < totalDays)
     {
         //cout << "                               ------------ Day " << currentTime << " ------------\n";
-        recalculateLibWeightings(weightings);
-        resolveSignUps();
+        resolveSignUps(weightings);
         resolveScans();
 
 
@@ -175,11 +164,12 @@ int Solution::calcScore(vector<double> weightings)
 
 }
 
-void Solution::resolveSignUps()
+void Solution::resolveSignUps(vector<double> weightings)
 {
     //deal with sign ups and sign up decrement
     if (signUpBuffer.first == 0)
     {
+		recalculateLibWeightings(weightings);
         if (libsToSign >= 0)
         {
             Library* nextLibToSign = getNextLibrary();
@@ -430,7 +420,7 @@ void Solution::recalculateLibWeightings(vector<double> weightings)
             totalHueristic = totalHueristic / weightsUsed;
 
             //change this choose algo
-            totalHueristic = powl(totalHueristic, 10);
+            totalHueristic = powl(totalHueristic, 8);
             
             
             lib->setWeight(totalHueristic);

@@ -51,7 +51,7 @@ public:
 	Library* getNextLibrary();
 
 	int calcScore(vector<double> weightings);
-	void resolveSignUps();
+	void resolveSignUps(vector<double> weightings);
 	void resolveScans();
 
 	void resetData();

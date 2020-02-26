@@ -8,10 +8,10 @@ using namespace std;
 
 const static int passes = 100;
 const static int samples = 20;
-const static int microSamples = 2;
+const static int microSamples = 3;
 static double sigma = 1; // may be too big
 
-static vector<double> weightings = vector<double>({ 1, 1, 1 });
+static vector<double> weightings = vector<double>({ 0, 0, 0 });
 
 
 
@@ -19,16 +19,16 @@ int optimize(string file)
 {
 	int maxScore = 0;
 	Solution* bestSolution = NULL;
-	vector<double> weightings = vector<double>({ 1, 1, 1 });
+	vector<double> weightings = vector<double>({ 0, 0, 0 });
 
 	default_random_engine generator(static_cast <unsigned> (time(0)));
 	normal_distribution<double> normalDist(1.0, sigma);
 	double sigmaDecrement = sigma / ((double)passes + 1);
 
 	//starting params
-	weightings.at(0) = 0.5;
-	weightings.at(1) = 0.5;
-	weightings.at(2) = 0.5;
+	weightings.at(0) = 0;
+	weightings.at(1) = 0;
+	weightings.at(2) = 0;
 	
 	vector<double> weightingsBuffer = vector<double>(weightings);
 	vector<double> bestCurrentPassWeightingsBuffer = vector<double>(weightings);
@@ -80,6 +80,11 @@ int optimize(string file)
 				if (score > localMaxScore)
 				{
 					localMaxScore = score;
+
+					if (!bestSolution == NULL)
+					{
+						delete bestSolution;
+					}
 					bestSolution = new Solution(*currentSample);
 					if (localMaxScore > maxScore)
 					{
@@ -89,6 +94,7 @@ int optimize(string file)
 					}
 				}
 				currentSample->resetData();
+				delete currentSample;
 			}
 
 			//if this sample beat the max score copy the weighting into best weightings
@@ -100,7 +106,7 @@ int optimize(string file)
 
 
 		weightingsBuffer = bestCurrentPassWeightingsBuffer;
-		sigma -= sigmaDecrement;
+		sigma *= 0.75;
 		cout << "New Sigma: " << sigma << "\n";
 
 
@@ -110,8 +116,18 @@ int optimize(string file)
 
 	}
 
+	for (Book* book : bestSolution->getBooksList())
+	{
+		delete book;
+	}
+
+	for (Library* lib : bestSolution->getLibraryList())
+	{
+		delete lib;
+	}
+
 	delete bestSolution;
-	
+
 	return maxScore;
 }
 
